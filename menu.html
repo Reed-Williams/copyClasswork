@@ -1,0 +1,144 @@
+<!-- I didn't get to the extra credit section because I am trying to very carefully learn CSS and work up to it! I do plan to go back to figure it out within the next few days -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Example</title>
+    <style>
+        body
+        {
+            background-color: rgb(175, 245, 175);
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        /* This makes the elements in the nav bar appear in a row */
+        nav
+        {
+            background-color: green;
+            display: flex;
+            flex-direction: row;
+        }
+        /* Here we format how the nav bar tabs look */
+        h2, label
+        {
+          display: block;
+          margin: 0;
+          padding: 5px 10px;
+          min-width: 100px;
+          font-size: large;   
+        }
+        /* Here we change the color of a nav tab when it is hovered over*/
+        nav > div:hover
+        {
+            background-color: rgb(43, 201, 64);
+            /*This having relative position lets the dropdown column in the next section to appear below it*/
+            position: relative;
+        }
+        /* This section formats the dropdown section*/
+        nav > div > div
+        {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            width: 100%;
+            background-color: rgb(43, 201, 64);
+        }
+        /*This section lets us see the dropdown menu when we hover*/
+        nav > div:hover > div
+        {
+            display: flex;
+        }
+        /*This Section formats the elements in the dropdown menu*/
+        nav a
+        {
+            display: block;
+            padding: 5px 10px;
+            text-decoration: none;
+        }
+        /*This section changes the background color when we hover over something in the dropdown menu*/
+        nav a:hover
+        {
+            background-color: rgb(37, 219, 20);
+        }
+        div.supersection
+        {
+            /*note that the following will horizantally center the sections on the page and allocate a specific width*/
+            max-width: 1231px;
+            margin: 0 auto;
+        }
+        .section
+        {
+            background-color: white;
+            /*note that the border needs to come before the next two things to span the padding and margin */
+            border-left: 5px solid green;
+            padding: 15px;
+            margin: 25px;
+        }
+        .yellowSideOverride
+        {
+            /*note that we only specify the color here so everything else stays the same*/
+            border-color: yellow;
+        }
+
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <h2>File</h2>
+            <div>
+                <a href > New </a>
+                <a href > Open </a>
+                <a href > Save </a>
+                <a href > Print </a>
+                <a href > Close </a>
+            </div>
+        </div>
+        <div>
+            <!-- Making Edit a label keeps is from being bold-->
+            <label>Edit</label>
+            <div>
+                <a href > Undo </a>
+                <a href > Redo </a>
+                <a href > Cut </a>
+                <a href > Copy </a>
+                <a href > Paste </a>
+                <a href > Delete </a>
+                <a href > Select All </a>
+            </div>
+        </div>
+        <div>
+            <h2>View</h2>
+            <div>
+                <a href > Zoom In </a>
+                <a href > Zoom Out </a>
+                <a href > Actual Size </a>
+                <a href > Fit Page </a>
+                <a href > Fit Width </a>
+                <a href > Fit Height </a>
+                <a href > Rotate Left </a>
+                <a href > Rotate Right </a>
+                <a href > Full Screen </a>
+            </div>
+        </div>
+    </nav>
+    <div class="supersection">
+        <div class = "section">
+            <h3>Instructions</h3>
+            <p>Recreate this page using <b><i>only CSS</i></b>. Do yourself a favor and 1) Do not view the source. Figure it out yourself. 2) Do not search for the solution. Learn CSS until you know enough to do this.</p>
+        </div>
+    </div>
+    <br>
+    <div class="supersection">
+        <div class="section yellowSideOverride">
+            <h3>Extra Credit</h3>
+            <p>Notice how the Edit menu (besides for not being bold) reacts to clicks. If you click the edit menu, it remains open until you click somewhere else. (This you might need to search for)</p>
+        </div>
+    </div>
+
+</body>
+</html>
