@@ -1,12 +1,19 @@
 {
-    "name": "2022-spring",
-    "version": "1.0.0",
-    "description": "- HTML\r  - CSS\r  - Bulma\r  - Vue 3\r  - NodeJS\r  - Express\r  - CI/CD",
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/jewpaltz/2022-fall.git"
-    }
-  }
+  "name": "copyclasswork",
+  "version": "1.0.0",
+  "description": "---",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Reed-Williams/copyClasswork.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Reed-Williams/copyClasswork/issues"
+  },
+  "homepage": "https://github.com/Reed-Williams/copyClasswork#readme"
+}
