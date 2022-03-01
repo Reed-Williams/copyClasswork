@@ -7,9 +7,19 @@
     <title>Bulma Examples</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+    <style lang="css">
+        .card .delete {
+            position: absolute;
+            right: 0.5rem;
+            top: 0.5rem;
+        }
+        .container {
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
-<div id="app">
+    <div id="app">
     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
 
         <div class="container">
@@ -96,7 +106,7 @@
 
             <div class="">
                 <div class="columns">
-{{message}}
+
                     <div class="column is-one-quarter">
                         <aside class="menu">
                             <p class="menu-label">
@@ -134,26 +144,47 @@
                           </aside>
                     </div>
 
-                    <div class="column is-half content">
+                    <div class="column is-half">
                         <h1 class="title">Bulma Examples</h1>
                         <h2 class="subtitle">Some examples of using Bulma</h2> 
 
-                        <div class="notification is-primary">
-                            <button class="delete" @click="cardClick"></button>
-                            This is a warning alert—check it out!
-                            {{message}}
-                        </div>
 
-                        <div class="notification is-warning">
-                            <button class="delete"></button>
-                            This is a primary alert—check it out!
-                        </div>
+                        <div class="card" @click="cardClick"  >
+                            <div class="card-image">
+                              <figure class="image is-4by3">
+                                <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                              </figure>
+                            </div>
+                                <button class="delete"></button>
+                            <div class="card-content">
+                              <div class="media">
+                                <div class="media-left">
+                                  <figure class="image is-48x48">
+                                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                                  </figure>
+                                </div>
+                                <div class="media-content">
+                                  <p class="title is-4">John Smith</p>
+                                  <p class="subtitle is-6">@johnsmith</p>
+                                </div>
+                              </div>
+                          
+                              <div class="content">
+                                {{ message }} 
+                                <br />
+                                <a>@bulmaio</a>.
+                                <a href="#">#css</a> <a href="#">#responsive</a>
+                                <br>
+                                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                              </div>
+                            </div>
+                          </div>
 
-                        <div class="notification is-danger">
-                            <button class="delete"></button>
-                            This is a danger alert—check it out!
+                        <div v-for=" (x, i) in notifications" :class="`notification is-${x.type}`">
+                            <button class="delete" @click="close(i)" ></button>
+                            {{ x.message }}
                         </div>
-
+                        
                     </div>
                        
                     <div class="column is-one-quarter">
@@ -171,7 +202,7 @@
                             </p>
                             <div class="panel-block">
                               <p class="control has-icons-left">
-                                <input class="input is-primary" type="text" placeholder="Search">
+                                <input class="input is-primary" type="text" :placeholder="prompt">
                                 <span class="icon is-left">
                                   <i class="fas fa-search" aria-hidden="true"></i>
                                 </span>
@@ -208,40 +239,49 @@
       </div>
     </div>
 
-<!--We got rid of all the jQuery-->
+      <!-----   VUE ----------------->
 
-      <!--VUE-->
-      <script src="https://unpkg.com/vue@3"></script>
-      <!--below we have our current template-->
-      
-      <!--
-          The line right below this we got rid of because we wrapped all of our html in a div and id=app is at the top
-      -->
-      <!--<div id="app">{{ message }}</div> -->
-      
-      <script>
+    <script src="https://unpkg.com/vue@3"></script>
+
+
+
+    <script>
         Vue.createApp({
-          data() {
-            return {
-              //below we have a property
-              message: 'Hello Vue!',
-              //this variable is for the tabs situation
-              currentTab: 'All',
-              prompt: 'Waiting For Input',
-            }
-          },
-          methods: {
-                //side effect functions
+
+            data() {
+                return {
+                    message: 'Hello Vue!',
+                    currentTab: 'All',
+                    prompt: 'Waiting for input...',
+                    notifications: [
+                        { type: 'primary', message: 'This is a primary notification' },
+                        { type: 'link', message: 'This is a link notification' },
+                        { type: 'success', message: 'Yay you did it!' },
+                        { type: 'warning', message: 'Uh Oh! Watch out!' },
+                        { type: 'danger', message: 'I cant believe you just did that!' },
+                    ]
+                }
+            },
+            methods: {
                 cardClick() {
                     this.message = 'You clicked the card!';
+                },
+                close(index) {
+                    this.notifications.splice(index, 1);
                 }
-          },
-          computed: {
-              //getters without side effects
-          },
-          //next we have specialized components, mounted is like a constructor. But above we have the basics
-          //mount takes the whole div(all our html) and combines it on this vm, anywhere we want we could output a message
+                
+            },
+            computed: {
+                
+            },
+            mounted() {
+                setInterval(() => {
+                    this.prompt += '.';
+                }, 500);
+            }
+
         }).mount('#app')
-      </script>
-    </body>
+    </script>
+
+</body>
 </html>

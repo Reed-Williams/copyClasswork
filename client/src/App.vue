@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import Nav from './components/Nav.vue'
-import Messages from './pages/Messages.vue'
+import Nav from './components/Nav.vue';
+import Messages from './pages/Messages.vue';
 
 </script>
 
 <template>
 <Nav></Nav>
-  <h1 class="title"> Yo wassup</h1>
-</template>
-<Messages></Messages>
+<div class="container">
+  <section class="section">
+    <h1 class="title">Example of a Title!</h1>
+    <Messages></Messages>
+  </section>
+</div>
 
+</template>
 <style>
 
 </style>
