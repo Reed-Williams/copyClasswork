@@ -1,21 +1,27 @@
 <script setup lang="ts">
   import { ref, reactive, onMounted } from 'vue';
+
+  import Messages from '../components/Messages.vue';
+
   const message = ref( 'Hello Vue!' );
   const currentTab = ref('All');
   const prompt = ref( 'Waiting for input...');
-  const notifications = reactive( [
-    { type: 'primary', message: 'This is a primary notification' },
-    { type: 'link', message: 'This is a link notification' },
-    { type: 'success', message: 'Yay you did it!' },
-    { type: 'warning', message: 'Uh Oh! Watch out!' },
-    { type: 'danger', message: 'I cant believe you just did that!' },
-  ]);
+  
+  //const notifications = reactive( [
+  //  { type: 'primary', message: 'This is a primary notification' },
+  //  { type: 'link', message: 'This is a link notification' },
+  //  { type: 'success', message: 'Yay you did it!' },
+  //  { type: 'warning', message: 'Uh Oh! Watch out!' },
+  //  { type: 'danger', message: 'I cant believe you just did that!' },
+  //]);
+  
   function cardClick() {
     message.value = 'You clicked the card!';
   }
-  function close(index: number) {
-    notifications.splice(index, 1);
-  }          
+  //function close(index: number) {
+  //  notifications.splice(index, 1);
+  //}       
+     
   onMounted(() => {
     setInterval(() => {
         prompt.value += '.';
@@ -100,10 +106,7 @@
                             </div>
                           </div>
 
-                        <div v-for=" (x, i) in notifications" :class="`notification is-${x.type}`">
-                            <button class="delete" @click="close(i)" ></button>
-                            {{ x.message }}
-                        </div>
+                        <Messages />
                         
                     </div>
                        
