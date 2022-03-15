@@ -53,6 +53,15 @@ import Messages from './Messages.vue'
                 </div>
               </div>
               <div class="navbar-end">
+
+                <div class="navbar-item">
+                  <login-badge></login-badge>
+                </div>
+
+                <messages />
+                
+
+
                 <div class="navbar-item">
                     <div class="field is-grouped">
                       <p class="control">
@@ -76,9 +85,6 @@ import Messages from './Messages.vue'
                     </div>
                 </div>
 
-                <div class="navbar-item">
-                  <login-badge></login-badge>
-                </div>
                 
 
               </div>

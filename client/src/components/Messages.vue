@@ -16,8 +16,6 @@
             </span>
         </a>
         <div class="navbar-dropdown">
-
-            <!--Here is where we have the notification portion that came from the origninal Messages.vue(now wall.vue)-->
             <div v-for=" (x, i) in messages.notifications" :class="`notification is-light is-${x.type}`">
                 <button class="delete" @click="messages.close(i)" ></button>
                 {{ x.message }}
