@@ -15,7 +15,8 @@ const routes: RouteRecordRaw[] = [
   { path: '/contact', component: Generic, props: { title: 'Contact Page!' } },
   { path: '/login', component: Login },
   { path: '/signup', component: Generic, props: { title: 'Signup Page!' } },
-  { path: '/messages', component: () => import('../pages/Wall.vue') },
+  { path: '/wall', component: () => import('../pages/Wall.vue') },
+  { path: '/hidden', component: Generic, props: { title: 'You reached the hidden Page!' } },
 ]
 
 // Set up the router. This example is including a history which affects how/when things are loaded/reloaded
@@ -27,7 +28,15 @@ const router = createRouter({
 
 //before a user can view the messages page they must login
 router.beforeEach((to, from) => {
-    if (['/messages'].includes(to.path)) { // list of paths that require login, more things might be here than 
+  if(session.destinationUrl == null && to.path != '/login') {
+    session.destinationUrl = to.path;
+}
+  console.log({ to });
+  const protectedUrls = ['/messages', '/wall', '/feed', '/hidden'];
+  console.log({ protectedUrls });
+
+  if (protectedUrls.includes(to.path)) { // list of paths that require login
+      console.log('requires login');
         if (!session.user) {
             return '/login';
         }
