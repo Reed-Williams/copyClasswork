@@ -27,7 +27,7 @@ jobs:
       run: |
           mkdir -p dist/server/public/
           cp -a client/dist/. dist/server/public/
-          cp -a server/. dist/server/
+          cp -a Server/. dist/server/
           cp package.json dist/
           
     - name: Deploy 🚀
