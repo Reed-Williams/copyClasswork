@@ -25,16 +25,16 @@ jobs:
 
     - name: Copy static files
       run: |
-          mkdir dist/server/public/
-          cp -a client/dist/. dist/server/public/
-          cp -a server/. dist/server/
+          mkdir dist/Server/public/
+          cp -a client/dist/. dist/Server/public/
+          cp -a server/. dist/Server/
           cp package.json dist/
           
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4.2.3
       with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: dist/server/public # The folder the action should deploy.
+          folder: dist/Server/public # The folder the action should deploy.
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4.2.3
       with:
