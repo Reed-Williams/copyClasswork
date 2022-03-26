@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express.Router();
 
-const userModel = require('../models/user');
+const userModel = require('../models/users');
 //import to make "magic numbers" constants instead of using them directly in code
 const CREATED_STATUS = 201;
 
