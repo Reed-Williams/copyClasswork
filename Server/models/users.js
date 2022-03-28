@@ -1,42 +1,67 @@
 let highestId = 3;
+
 const list = [
-    {handle: 'exampleperson',
-    password: 'password',
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'example@yahoo.com',
-    pic: 'https://randomuser.me/api/portraits/men/33.jpg',
-    id: 1},
-    {handle: 'exampleperson1',
-    password: '12345',
-    firstName: 'James',
-    lastName: 'Dunn',
-    email: 'example1@yahoo.com',
-    pic: 'https://randomuser.me/api/portraits/men/34.jpg',
-    id: 2},
-    {handle: 'exampleperson2',
-    password: 'abcdef',
-    firstName: 'Harry',
-    lastName: 'Potter',
-    email: 'example2@yahoo.com',
-    pic: 'https://randomuser.me/api/portraits/men/35.jpg',
-    id: 3},
+    {
+        firstName: 'John',
+        lastName: 'Doe',
+        handle: 'johndoe',
+        password: 'password',
+        email: 'jhon@doe.com',
+        pic: 'https://randomuser.me/api/portraits/men/1.jpg',
+        id: 1,
+    },
+    {
+        firstName: 'Vladimir',
+        lastName: 'Putin',
+        handle: 'russian_dictator',
+        password: 'long table',
+        email: 'jhon@doe.com',
+        pic: 'https://randomuser.me/api/portraits/men/2.jpg',
+        id: 2,
+    },
+    {
+        firstName: 'Kamala',
+        lastName: 'Harris',
+        handle: 'vp',
+        password: 'password',
+        email: 'kamala@whitehouse.org',
+        pic: 'https://randomuser.me/api/portraits/women/3.jpg',
+        id: 3,
+    },
 ];
 
-//return the user of a given id
 function get(id){
-    return list.find(user => user.id === parseInt(id));
-}
-//make a new user
-function create(user){
-    user.id = ++highestId;
-    list.push(user);
-    return user;
+    return { ...list.find(user => user.id === parseInt(id)), password: undefined };
 }
 
-//export the array 
-module.exports.list = list;
-//export the get method
+function remove(id){
+    const index = list.findIndex(user => user.id === parseInt(id));
+    const user = list.splice(index,1);
+    
+    return { ...user[0], password: undefined};
+}
+
+function update(id, newUser){
+    const index = list.findIndex(user => user.id === parseInt(id));
+    const oldUser = list[index];
+
+    newUser = list[index] = { ...oldUser, ...newUser };
+
+    console.log(list);
+    
+    return { ...newUser, password: undefined};
+}
+
+module.exports = {
+    create(user) {
+        user.id = ++highestId;
+        list.push(user);
+        return {...user, password: undefined};
+    },
+    remove,
+    update,
+    get list(){
+        return list.map(x=> ({...x, password: undefined }) );
+    }
+}
 module.exports.get = get;
-//export the create method
-module.exports.create = create;

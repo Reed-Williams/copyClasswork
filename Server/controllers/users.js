@@ -9,15 +9,25 @@ app
     .get('/', (req, res) => {
         res.send(userModel.list);
     })
-    .get('/:id', (req, res) => {
+    .get('/:id', (req,res) => {
 
         const user = userModel.get(req.params.id);
         res.send(user);
 
     })
     .post('/', (req, res) => {
+        console.log(req.body)
         const user = userModel.create(req.body);
+        console.log(req.body)
         res.status(CREATED_STATUS).send(user);
+    })
+    .delete('/:id', (req, res)=>{
+        const user = userModel.remove(req.params.id);
+        res.send({ success: true, errors: [], data: user });
+    })
+    .patch('/:id', (req, res)=>{
+        const user = userModel.update(req.params.id, req.body ); 
+        res.send({ success: true, errors: [], data: user });
     })
 
 module.exports = app;
