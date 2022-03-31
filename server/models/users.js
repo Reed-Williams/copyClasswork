@@ -2,36 +2,36 @@ let highestId = 3;
 
 const list = [
     {
-        firstName: 'John',
-        lastName: 'Doe',
-        handle: 'johndoe',
-        password: 'password',
-        email: 'jhon@doe.com',
-        pic: 'https://randomuser.me/api/portraits/men/1.jpg',
+        name: 'Sally',
+        username: 'seashellSeller',
+        password: 'starfish',
+        email: 'sheSellsSeashells@gmail.com',
         id: 1,
     },
     {
-        firstName: 'Vladimir',
-        lastName: 'Putin',
-        handle: 'russian_dictator',
-        password: 'long table',
-        email: 'jhon@doe.com',
-        pic: 'https://randomuser.me/api/portraits/men/2.jpg',
+        name: 'Steve',
+        username: 'stevenWilliams67',
+        password: 'mustang',
+        email: 'swilliam39@newpaltz.edu',
         id: 2,
     },
     {
-        firstName: 'Kamala',
-        lastName: 'Harris',
-        handle: 'vp',
-        password: 'password',
-        email: 'kamala@whitehouse.org',
-        pic: 'https://randomuser.me/api/portraits/women/3.jpg',
+        name: 'Percy',
+        username: 'percyJackson',
+        password: 'blueberry',
+        email: 'pjackso21@yahoo.com',
         id: 3,
-    },
+    }
 ];
 
 function get(id){
     return { ...list.find(user => user.id === parseInt(id)), password: undefined };
+}
+
+function create(user) {
+    user.id = ++highestId;
+    list.push(user);
+    return {...user, password: undefined};
 }
 
 function remove(id){
@@ -53,15 +53,11 @@ function update(id, newUser){
 }
 
 module.exports = {
-    create(user) {
-        user.id = ++highestId;
-        list.push(user);
-        return {...user, password: undefined};
-    },
+    get,
+    create,
     remove,
     update,
     get list(){
         return list.map(x=> ({...x, password: undefined }) );
     }
 }
-module.exports.get = get;
