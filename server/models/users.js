@@ -1,3 +1,5 @@
+require(bcrypt);
+
 let highestId = 3;
 
 const list = [
@@ -28,8 +30,11 @@ function get(id){
     return { ...list.find(user => user.id === parseInt(id)), password: undefined };
 }
 
-function create(user) {
+async function create(user) {
     user.id = ++highestId;
+
+    user.password = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS);
+
     list.push(user);
     return {...user, password: undefined};
 }
@@ -41,13 +46,17 @@ function remove(id){
     return { ...user[0], password: undefined};
 }
 
-function update(id, newUser){
+async function update(id, newUser){
     const index = list.findIndex(user => user.id === parseInt(id));
     const oldUser = list[index];
 
+    if(newUser.password){
+        newUser.password = await bcrypt.hash(newUser.password, +process.env.SALT_ROUNDS);
+    }
+    
+
     newUser = list[index] = { ...oldUser, ...newUser };
 
-    console.log(list);
     
     return { ...newUser, password: undefined};
 }
