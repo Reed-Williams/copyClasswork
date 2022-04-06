@@ -1,29 +1,36 @@
-require(bcrypt);
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 let highestId = 3;
 
 const list = [
     {
-        name: 'Sally',
-        username: 'seashellSeller',
-        password: 'starfish',
-        email: 'sheSellsSeashells@gmail.com',
+        firstName: 'John',
+        lastName: 'Doe',
+        handle: 'johndoe',
+        password: 'password',
+        email: 'jhon@doe.com',
+        pic: 'https://randomuser.me/api/portraits/men/1.jpg',
         id: 1,
     },
     {
-        name: 'Steve',
-        username: 'stevenWilliams67',
-        password: 'mustang',
-        email: 'swilliam39@newpaltz.edu',
+        firstName: 'Vladimir',
+        lastName: 'Putin',
+        handle: 'russian_dictator',
+        password: 'long table',
+        email: 'jhon@doe.com',
+        pic: 'https://randomuser.me/api/portraits/men/2.jpg',
         id: 2,
     },
     {
-        name: 'Percy',
-        username: 'percyJackson',
-        password: 'blueberry',
-        email: 'pjackso21@yahoo.com',
+        firstName: 'Kamala',
+        lastName: 'Harris',
+        handle: 'vp',
+        password: 'password',
+        email: 'kamala@whitehouse.org',
+        pic: 'https://randomuser.me/api/portraits/women/3.jpg',
         id: 3,
-    }
+    },
 ];
 
 function get(id){
@@ -53,12 +60,39 @@ async function update(id, newUser){
     if(newUser.password){
         newUser.password = await bcrypt.hash(newUser.password, +process.env.SALT_ROUNDS);
     }
-    
-
     newUser = list[index] = { ...oldUser, ...newUser };
 
-    
     return { ...newUser, password: undefined};
+}
+
+async function login(email, password){
+    const user = list.find(user => user.email === email);
+    if(!user){
+        throw{ statusCode: 404, message: 'User not found'};
+    }
+    if(!await bcrypt.compare(password, user.password)){
+        throw { statusCode: 401, message: 'Invalid password' };
+    }
+    const data = {...user, password: undefined};
+    const token = jwt.sign(data, process.env.JWT_SECRET)
+    //return token as a new property in the user
+    return {...user, token};
+}
+
+//return to the user from the token 
+function fromToken(token){
+    //resolve and reject are two functions 
+    //below we have what is happening under the hood of async await
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, process.env.JWT_SECRET, (err, decoded)=> {
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(decoded);
+            }
+        });
+    });
 }
 
 module.exports = {
@@ -66,6 +100,8 @@ module.exports = {
     create,
     remove,
     update,
+    login,
+    fromToken,
     get list(){
         return list.map(x=> ({...x, password: undefined }) );
     }
