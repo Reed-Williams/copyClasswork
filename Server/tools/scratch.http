@@ -1,4 +1,5 @@
 http://localhost:3000
+
 ###
 GET http://localhost:3000/api/users/
 
@@ -10,7 +11,6 @@ GET http://localhost:3000/api/users/1
 DELETE  http://localhost:3000/api/users/1
 
 ###
-
 POST http://localhost:3000/api/users
 Content-Type: application/json
 
@@ -19,7 +19,19 @@ Content-Type: application/json
   "lastName": "Christian",
   "handle": "newpaltz_benevolent",
   "password": "hugo",
-  "email": "jhon@doe.com",
+  "email": "president@newpaltz.edu",
+  "pic": "https://randomuser.me/api/portraits/men/2.jpg"
+}
+###
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "firstName": "test",
+  "lastName": "Christian",
+  "handle": "newpaltz_benevolent",
+  "password": "test",
+  "email": "test@newpaltz.edu",
   "pic": "https://randomuser.me/api/portraits/men/2.jpg"
 }
 
@@ -28,5 +40,16 @@ PATCH http://localhost:3000/api/users/2
 Content-Type: application/json
 
 {
-  "lastName": "Putin III"
+  "lastName": "Putin III",
+  "password": "Ukraine",
+  "email": "save@ukraine.com"
+}
+
+###
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{
+  "email": "test@newpaltz.edu",
+  "password": "test"
 }
