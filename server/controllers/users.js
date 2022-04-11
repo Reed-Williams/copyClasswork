@@ -8,14 +8,24 @@ const userModel = require('../models/users');
 const CREATED_STATUS = 201;
 
 app
-    .get('/', (req, res) => {
-        res.send(userModel.list);
+    .get('/', requireAuth, (req, res, next) => {
+        userModel.getList()
+        .then(users => {
+            res.send(users);
+        }).catch(next);
     })
-    .delete('/:id', requireAuth, (req, res) => {
+    .get('/handle/:handle', (req, res, next) => {
+        userModel.getByHandle(req.params.handle)
+        .then(user => {
+            res.send(user);
+        }).catch(next);
+    })
+    .get('/:id', (req, res, next) => {
 
-        const user = userModel.get(req.params.id);
-        res.send(user);
-
+        userModel.get(req.params.id)
+        .then(user => {
+            res.send(user);
+        }).catch(next);
     })
     .post('/', (req, res, next) => {
         userModel.create(req.body)
@@ -24,9 +34,11 @@ app
         })
         .catch(next);
     })
-    .delete('/:id', (req, res)=>{
-        const user = userModel.remove(req.params.id);
-        res.send({ success: true, errors: [], data: user });
+    .delete('/:id', requireAuth, (req, res, next) => {
+        userModel.remove(req.params.id)
+        .then(user => {
+            res.send({ success: true, errors: [], data: user });
+        }).catch(next);
     })
     .patch('/:id', (req, res, next) => {
         userModel.update(req.params.id, req.body ) 
@@ -39,6 +51,12 @@ app
         .then(user => {
             res.send(user);
         }).catch(next);
-    });
+    })
+    .post('/seed', (req, res, next) => {
+        userModel.seed()
+        .then(x => {
+            res.send({ success: true, errors: [], data: x.insertedIds });
+        }).catch(next);
+    })
 
 module.exports = app;
