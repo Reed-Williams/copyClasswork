@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { db, isConnected, ObjectId } = require('./mongo');
+const collection = db.db("gratitude").collection("users");
 
 let highestId = 3;
 
@@ -33,40 +35,60 @@ const list = [
     },
 ];
 
-function get(id){
-    return { ...list.find(user => user.id === parseInt(id)), password: undefined };
+async function get(id){
+    const user = await collection.findOne({ _id: new ObjectId(id) });
+    if(!user){
+        throw { statusCode: 404, message: 'User not found'};
+    }
+    return { ...user, password: undefined };
+}
+
+async function getByHandle(handle){
+    const user = await collection.findOne({ handle });
+    if(!user){
+        throw { statusCode: 404, message: 'User not found'};
+    }
+    return { ...user, password: undefined };
 }
 
 async function create(user) {
     user.id = ++highestId;
 
+    if(!user.handle){
+        throw { stat: 400, message: 'Handel is Required'}
+    }
+
     user.password = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS);
 
-    list.push(user);
+    const result = await collection.insertOne(user);
+    //result doesn't give us all the info we want to return, so we get it after inserting it
+    user = await get(result.insertedId);
     return {...user, password: undefined};
 }
 
-function remove(id){
-    const index = list.findIndex(user => user.id === parseInt(id));
-    const user = list.splice(index,1);
-    
-    return { ...user[0], password: undefined};
+async function remove(id){
+    const user = await collection.findOneAndDelete({ _id: new ObjectId(id) });
+    return { ...user.value , password: undefined};
 }
 
 async function update(id, newUser){
-    const index = list.findIndex(user => user.id === parseInt(id));
-    const oldUser = list[index];
-
     if(newUser.password){
         newUser.password = await bcrypt.hash(newUser.password, +process.env.SALT_ROUNDS);
     }
-    newUser = list[index] = { ...oldUser, ...newUser };
+
+    newUser = await collection.findOneAndUpdate(
+        { _id: new ObjectId(id) },
+        { $set: newUser },
+        { returnDocument: 'after' }
+    );
 
     return { ...newUser, password: undefined};
 }
 
 async function login(email, password){
-    const user = list.find(user => user.email === email);
+    //replace list find with the collection find
+    const user = await collection.findOne({ email });
+
     if(!user){
         throw{ statusCode: 404, message: 'User not found'};
     }
@@ -95,14 +117,24 @@ function fromToken(token){
     });
 }
 
+//puts what is in our list into the database
+function seed(){
+    return collection.insertMany(list);
+}
+
 module.exports = {
+    collection, 
+    seed,
+    getByHandle,
     get,
     create,
     remove,
     update,
     login,
     fromToken,
-    get list(){
-        return list.map(x=> ({...x, password: undefined }) );
+    //we say getList because java script can't have async getters 
+    async getList(){
+        //the await needs to be wrapped in ( ) bc map needs an array not a promise
+        return (await collection.find().toArray()).map(x=> ({...x, password: undefined }) );
     }
 }
