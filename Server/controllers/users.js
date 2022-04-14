@@ -41,8 +41,8 @@ app
         }).catch(next);
     })
     .patch('/:id', (req, res, next) => {
-        userModel.update(req.params.id, req.body ) 
-        .then(user=> {
+        userModel.update(req.params.id, req.body )
+        .then(user => {
             res.send({ success: true, errors: [], data: user });
         }).catch(next);
     })

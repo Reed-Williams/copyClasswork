@@ -72,16 +72,18 @@ async function remove(id){
 }
 
 async function update(id, newUser){
-    if(newUser.password){
-        newUser.password = await bcrypt.hash(newUser.password, +process.env.SALT_ROUNDS);
-    }
 
+    if(newUser.password){
+        newUser.password = await bcrypt.hash(newUser.password, 10);
+    }
+    
     newUser = await collection.findOneAndUpdate(
         { _id: new ObjectId(id) },
         { $set: newUser },
         { returnDocument: 'after' }
     );
-
+    console.log(newUser);
+    
     return { ...newUser, password: undefined};
 }
 

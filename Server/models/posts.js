@@ -1,6 +1,6 @@
 const { db, ObjectId } = require('./mongo');
 const userModel = require('./users');
-const collection = db.db("gratitude").collection("users");
+const collection = db.db("gratitude").collection("posts");
 
 let hieghstId = 3;
 
@@ -42,6 +42,7 @@ async function get(id){
         throw { status: 404, message: 'Post not found' };
     }
     return includeUser(post) ;
+    
 }
 async function getWall(handle){
     const posts = await collection.find({ handle }).toArray();
@@ -55,7 +56,7 @@ const post = await collection.findOneAndDelete({ _id: new ObjectId(id)});
 }
 
 async function update(id, newPost){
-    newPost = await collection.findOneAndUpdate({_id: new ObjectId(id)}, { $set:newPost },{returnDocument: 'after'})
+    newPost = await collection.findOneAndUpdate({_id: new ObjectId(id)}, { $set: newPost },{returnDocument: 'after'})
     
     return includeUser(newPost);
 }
@@ -70,11 +71,12 @@ module.exports = {
     },
     remove,
     update,
+    async  getList(){
+        const posts = await collection.find({}).toArray();
+        console.log( posts )
+        return Promise.all( posts.map(x=> includeUser(x) ) );
+    },
+    
     getWall,
-    async getList(){
-        const posts = collection.find({}).toArray();
-
-        return Promise.all(posts.map( x=> includeUser(x) ));
-    }
 }
 module.exports.get = get;
