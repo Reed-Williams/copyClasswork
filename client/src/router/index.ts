@@ -6,7 +6,7 @@ import Home from '../pages/Home.vue';
 //import Messages from '../pages/Messages.vue';
 import Generic from '../pages/Generic.vue';
 import Login from '../pages/Login.vue';
-import session from "../models/session";
+import { useSession } from "../models/session";
 
 //All of our routes go in the route array
 const routes: RouteRecordRaw[] = [
@@ -28,6 +28,7 @@ const router = createRouter({
 
 //before a user can view the messages page they must login
 router.beforeEach((to, from) => {
+  const session = useSession();
   if(session.destinationUrl == null && to.path != '/login') {
     session.destinationUrl = to.path;
 }

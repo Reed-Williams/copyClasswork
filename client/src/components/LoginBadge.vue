@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 
-import session, {Logout} from "../models/session";
+import { useSession } from "../models/session";
+    const session = useSession();
+
+//import { useSession } from "../models/session"
+//const session = useSession
+//small changes to where the functions in session are used down below
 </script>
 
 <template>
@@ -25,7 +30,7 @@ import session, {Logout} from "../models/session";
                 <i>{{ session.user.email }}</i>
             </div>
         </div>
-        <a class="button us-primary" @click="Logout()">
+        <a class="button us-primary" @click="session.Logout()">
             <strong>Log out</strong>
         </a>
     </div>
