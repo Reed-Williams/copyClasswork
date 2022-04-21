@@ -45,7 +45,7 @@ async function get(id){
     
 }
 async function getWall(handle){
-    const posts = await collection.find({ handle }).toArray();
+    const posts = await collection.find({ owner: handle }).toArray();
 
     return Promise.all( posts.map(x=> includeUser(x) ) );
 }
@@ -59,6 +59,10 @@ async function update(id, newPost){
     newPost = await collection.findOneAndUpdate({_id: new ObjectId(id)}, { $set: newPost },{returnDocument: 'after'})
     
     return includeUser(newPost);
+}
+
+function seed(){
+    return collection.insertMany(list);
 }
 
 module.exports = {
@@ -78,5 +82,6 @@ module.exports = {
     },
     
     getWall,
+    seed,
 }
 module.exports.get = get;

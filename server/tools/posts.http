@@ -6,11 +6,11 @@ GET http://localhost:3001/api/posts/wall/'vp'
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU2Y2E3OTAwN2Y2MDkwYWViMGRhMTciLCJmaXJzdE5hbWUiOiJWbGFkaW1pciIsImxhc3ROYW1lIjoiUHV0aW4gSUlJIiwiaGFuZGxlIjoicnVzc2lhbl9kaWN0YXRvciIsImVtYWlsIjoic2F2ZUB1a3JhaW5lLmNvbSIsInBpYyI6Imh0dHBzOi8vcmFuZG9tdXNlci5tZS9hcGkvcG9ydHJhaXRzL21lbi8yLmpwZyIsImlkIjoyLCJpYXQiOjE2NDk4NTYwNTF9.csjRcE1E7_p53ldFLNVZoNwNN30u141YGaA1IA6k32w
 
 ###
-GET http://localhost:3001/api/posts/6256d28baab11d1938bdff0f
+GET http://localhost:3001/api/posts/625b606e5fb5683d2c5deebe
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU2Y2E3OTAwN2Y2MDkwYWViMGRhMTciLCJmaXJzdE5hbWUiOiJWbGFkaW1pciIsImxhc3ROYW1lIjoiUHV0aW4gSUlJIiwiaGFuZGxlIjoicnVzc2lhbl9kaWN0YXRvciIsImVtYWlsIjoic2F2ZUB1a3JhaW5lLmNvbSIsInBpYyI6Imh0dHBzOi8vcmFuZG9tdXNlci5tZS9hcGkvcG9ydHJhaXRzL21lbi8yLmpwZyIsImlkIjoyLCJpYXQiOjE2NDk4NTYwNTF9.csjRcE1E7_p53ldFLNVZoNwNN30u141YGaA1IA6k32w
 
 ###
-DELETE  http://localhost:3001/api/posts/6256d11b8f95ca6389dad724
+DELETE  http://localhost:3001/api/posts/625b606e5fb5683d2c5deebe
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU2Y2E3OTAwN2Y2MDkwYWViMGRhMTciLCJmaXJzdE5hbWUiOiJWbGFkaW1pciIsImxhc3ROYW1lIjoiUHV0aW4gSUlJIiwiaGFuZGxlIjoicnVzc2lhbl9kaWN0YXRvciIsImVtYWlsIjoic2F2ZUB1a3JhaW5lLmNvbSIsInBpYyI6Imh0dHBzOi8vcmFuZG9tdXNlci5tZS9hcGkvcG9ydHJhaXRzL21lbi8yLmpwZyIsImlkIjoyLCJpYXQiOjE2NDk4NTYwNTF9.csjRcE1E7_p53ldFLNVZoNwNN30u141YGaA1IA6k32w
 
 ###
@@ -19,10 +19,10 @@ Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU2Y2E3OTAwN2Y2MDkwYWViMGRhMTciLCJmaXJzdE5hbWUiOiJWbGFkaW1pciIsImxhc3ROYW1lIjoiUHV0aW4gSUlJIiwiaGFuZGxlIjoicnVzc2lhbl9kaWN0YXRvciIsImVtYWlsIjoic2F2ZUB1a3JhaW5lLmNvbSIsInBpYyI6Imh0dHBzOi8vcmFuZG9tdXNlci5tZS9hcGkvcG9ydHJhaXRzL21lbi8yLmpwZyIsImlkIjoyLCJpYXQiOjE2NDk4NTYwNTF9.csjRcE1E7_p53ldFLNVZoNwNN30u141YGaA1IA6k32w
 
 
-    {
-        "src": "https://w2.chabad.org/media/images/1187/SvDB11878116.jpg?_i=_n504BC99DD0473598AAE3BCDC5D75568D",
-        "caption": "Of Mugs and Family Ties",
-        "owner": "vp",
+         {
+        "src" : "https://w2.chabad.org/media/images/1187/sTyy11875354.jpg?_i=_nF72F3FCB89E9790A548A28674376BE69",
+        "caption": "What It Has Been Like to Host Ukraine Refugees",
+        "owner": "russian_dictator",
         "likes": [],
         "comments": [],
         "isPublic": true
@@ -37,3 +37,8 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJWb
 {
     "owner": 3
 }
+
+####
+POST http://localhost:3001/api/posts/seed
+
+####
