@@ -14,7 +14,7 @@
                                 <button class="delete"></button>
                             <div class="card-content">
                               <div class="media">
-                                <div class="media-left">
+                                <div class="media-left" v-if="post.user">
                                    <figure class="image is-48x48">
                                     <img :src="post.user.pic" alt="Placeholder image">
                                   </figure>

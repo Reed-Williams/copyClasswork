@@ -9,11 +9,13 @@
     const route = useRoute();
     const posts = usePosts();
     posts.fetchPosts(route.params.handle as string);
+    
 
     const session = useSession();
-    const newPost = reactive<Post>( {  src: "", caption: "", owner: "", comments: [], likes: [], isPublic: false, user: session.user  }); 
+    const newPost = reactive<Post>( {  src: "", caption: "", owner: "", comments: [], likes: [], isPublic: false, user: session.user || ""  }); 
     const currentTab = "All";
     const prompt = "What's on your mind?";
+    console.log(posts.list)
 </script>
 
 <template>
